@@ -10,6 +10,27 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <h1>SQL To-Do List</h1>    
+    <h1>SQL To-Do List</h1> 
+    <h2>Enter New Task</h2>
+    <div id="newTaskDiv">
+        <label for="newTaskIn">New Task:</label>
+        <input type="text" id="newTaskIn"/>
+        <button id="newTaskButton">Add New Task</button>
+    </div>
+    <h2>List of Tasks</h2>
+    <div id="taskListDiv">
+        <table>
+            <thead>
+                <tr>
+                    <th>TO DO</th>
+                    <th>STATUS</th>
+                    <th></th> <!-- Empty for Status Button --> 
+                    <th></th> <!-- Empty for Delete Button -->
+                    </tr>
+            </thead>
+            <tbody id="taskTable">
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
