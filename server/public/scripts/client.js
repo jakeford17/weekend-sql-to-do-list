@@ -64,12 +64,13 @@ function appendTasks(listOfTasks){
 }
 
 function completeTask(){
-    console.log("COMPLETE TASK CLICKED");
+    let taskId = $(this).parent().parent().data("id");
+    console.log("Complete Task with ID: ", taskId);
 }
 
 function deleteTask(){
     let taskId = $(this).parent().parent().data("id");
-    console.log("Task ID: ", taskId);
+    console.log("Delete Task with ID: ", taskId);
     $.ajax({
         type: 'DELETE',
         url: `tasks/${taskId}`, 

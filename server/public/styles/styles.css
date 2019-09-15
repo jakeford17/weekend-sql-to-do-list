@@ -3,9 +3,10 @@
 body{
     background-color: bisque;
     font-family: 'Amatic SC', system-ui, -apple-system, sans-serif;
-    font-size: 15pt;
+    font-size: 17pt;
 }
 
 th{
     text-align: left;
+    text-decoration: underline;
 }
