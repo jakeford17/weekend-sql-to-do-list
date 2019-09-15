@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 
 body{
-    background-color: bisque;
+    background-color: #e6e6e6;
     font-family: 'Amatic SC', system-ui, -apple-system, sans-serif;
     font-size: 17pt;
 }
@@ -9,4 +9,9 @@ body{
 th{
     text-align: left;
     text-decoration: underline;
+    min-width: 260px;
+}
+
+.completedTask{
+    color: lightgray;
 }

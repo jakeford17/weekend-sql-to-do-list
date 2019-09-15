@@ -17,6 +17,7 @@ function submitNewTask(){
     todo.task = $('#newTaskIn').val(); //keeping task inputted inside an object
     console.log("Task Entered: ", todo)
     addTask(todo);
+    $("#newTaskIn").val("");
 }
 
 function addTask(taskToAdd){
@@ -50,16 +51,27 @@ function appendTasks(listOfTasks){
     $("#taskTable").empty();
     for(let i=0; i<listOfTasks.length; i++){
         let taskObject = listOfTasks[i];
-        $("#taskTable").append(`
-        <tr data-id="${taskObject.id}">
-            <td>${taskObject.task}</td>
-            <td>${taskObject.status}</td>
-            <td><button class="completeButton">Complete Task</button></td>
-            <td><button class="deleteButton">Delete</button></td>
-        </tr>
-    `);
+        if (taskObject.status===false){
+            $("#taskTable").append(`
+            <tr data-id="${taskObject.id}">
+                <td>${taskObject.task}</td>
+                <td>No</td>
+                <td><button class="completeButton">Completed Task</button></td>
+                <td><button class="deleteButton">Delete</button></td>
+            </tr>
+            `);
+        }else if (taskObject.status===true){
+            $("#taskTable").append(`
+            <tr class="completedTask" data-id="${taskObject.id}">
+                <td>${taskObject.task}</td>
+                <td>Yes</td>
+                <td>DONE!</td>
+                <td><button class="deleteButton">Delete</button></td>
+            </tr>
+            `);
+        }
     }
-    $(".completeButton").on('click', completeTask)
+    $(".completeButton").on('click', completeTask);
     $(".deleteButton").on('click', deleteTask);
 }
 

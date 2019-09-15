@@ -36,7 +36,7 @@ router.put('/status/:id',  (req, res) => {
     let id = req.params.id;
     console.log(`Updating Task ${id} with`, status);
     let queryText = '';
-    if(status === "Complete Task"){
+    if(status === "Completed Task"){
       queryText = `UPDATE "tasks" SET "status" = 'True' WHERE "id" = $1;`; 
     }else{
         res.sendStatus(500);
