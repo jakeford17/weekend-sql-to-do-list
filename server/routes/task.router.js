@@ -31,6 +31,25 @@ router.post('/',  (req, res) => {
   });
 
 //PUT
+router.put('/status/:id',  (req, res) => {
+    let status = req.body.status;
+    let id = req.params.id;
+    console.log(`Updating Task ${id} with`, status);
+    let queryText = '';
+    if(status === "Complete Task"){
+      queryText = `UPDATE "tasks" SET "status" = 'True' WHERE "id" = $1;`; 
+    }else{
+        res.sendStatus(500);
+        return;
+    }
+    pool.query(queryText, [id])
+      .then((result) => {
+          res.sendStatus(200);
+      }).catch((error) => {
+          console.log("Error making PUT request", error);
+          res.sendStatus(500);
+      })
+  });
 
 //DELETE
 router.delete('/:id', (req, res) => {

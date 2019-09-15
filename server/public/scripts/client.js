@@ -28,7 +28,7 @@ function addTask(taskToAdd){
           console.log('Response from server: ', response);
           refreshTaskList(); //function that runs GET request, which will run a function that appends to DOM
         }).catch(function(error) {
-          console.log('Error in POST', error)
+          console.log('Error in POST function: ', error)
           alert('Unable to add task');
         });
     }
@@ -41,7 +41,7 @@ function refreshTaskList(){
         console.log(response); 
         appendTasks(response);
       }).catch(function(error){
-        console.log('error in GET', error);
+        console.log('Error in GET function: ', error);
       });
 }
 
@@ -65,7 +65,20 @@ function appendTasks(listOfTasks){
 
 function completeTask(){
     let taskId = $(this).parent().parent().data("id");
-    console.log("Complete Task with ID: ", taskId);
+    let completeStatus = $(this).text();
+    console.log("Complete Task with ID and Status: ", taskId, completeStatus);
+    $.ajax({
+        type: 'PUT',
+        url: `/tasks/status/${taskId}`,
+        data: {
+            status: completeStatus
+        }
+        }).then( function(response){
+          console.log(response);
+          refreshTaskList();
+      }).catch( function(error){
+          alert("Error in PUT function: ", error);
+      })
 }
 
 function deleteTask(){
@@ -80,6 +93,6 @@ function deleteTask(){
         refreshTaskList();
     })
     .catch(function(error){
-        alert("Error: ", error);
+        alert("Error in DELETE function: ", error);
     })
 }
