@@ -15,3 +15,25 @@ th{
 .completedTask{
     color: lightgray;
 }
+
+.completeButton{
+    font-family: sans-serif;
+    width: 150px;
+    font-weight: 500;
+}
+
+.deleteButton{
+    font-family: sans-serif;
+    width: 150px;
+    font-weight: 500;
+}
+
+input{
+    width: 350px;
+}
+
+.addNewTaskButton{
+    font-family: sans-serif;
+    width: 150px;
+    font-weight: 500;
+}
