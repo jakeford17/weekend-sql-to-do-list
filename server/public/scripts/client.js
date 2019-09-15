@@ -51,7 +51,7 @@ function appendTasks(listOfTasks){
     for(let i=0; i<listOfTasks.length; i++){
         let taskObject = listOfTasks[i];
         $("#taskTable").append(`
-        <tr>
+        <tr data-id="${taskObject.id}">
             <td>${taskObject.task}</td>
             <td>${taskObject.status}</td>
             <td><button class="completeButton">Complete Task</button></td>
@@ -59,5 +59,26 @@ function appendTasks(listOfTasks){
         </tr>
     `);
     }
-    //add event listeners for Complete and Delete buttons here
+    $(".completeButton").on('click', completeTask)
+    $(".deleteButton").on('click', deleteTask);
+}
+
+function completeTask(){
+    console.log("COMPLETE TASK CLICKED");
+}
+
+function deleteTask(){
+    let taskId = $(this).parent().parent().data("id");
+    console.log("Task ID: ", taskId);
+    $.ajax({
+        type: 'DELETE',
+        url: `tasks/${taskId}`, 
+    })
+    .then(function(response){
+        console.log("RESPONSE", response);
+        refreshTaskList();
+    })
+    .catch(function(error){
+        alert("Error: ", error);
+    })
 }
