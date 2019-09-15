@@ -22,9 +22,25 @@ function addTask(taskToAdd){
         data: taskToAdd,
         }).then(function(response) {
           console.log('Response from server: ', response);
-        //   refreshBooks(); --->function that runs GET request, which will run a function that appends to DOM
+          refreshTaskList(); //function that runs GET request, which will run a function that appends to DOM
         }).catch(function(error) {
           console.log('Error in POST', error)
           alert('Unable to add task');
         });
     }
+
+function refreshTaskList(){
+    $.ajax({
+        type: 'GET',
+        url: '/tasks'
+      }).then(function(response) {
+        console.log(response);
+        displayTaskList(response);
+      }).catch(function(error){
+        console.log('error in GET', error);
+      });
+}
+
+function displayTaskList(taskList){
+    console.log("List of tasks: ", taskList);
+}
