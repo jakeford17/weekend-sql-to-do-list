@@ -96,15 +96,20 @@ function completeTask(){
 function deleteTask(){
     let taskId = $(this).parent().parent().data("id");
     console.log("Delete Task with ID: ", taskId);
-    $.ajax({
-        type: 'DELETE',
-        url: `tasks/${taskId}`, 
-    })
-    .then(function(response){
-        console.log("RESPONSE", response);
-        refreshTaskList();
-    })
-    .catch(function(error){
-        alert("Error in DELETE function: ", error);
-    })
+    let r = confirm("Are you sure you want to delete this task?");
+    if (r == true) {
+        $.ajax({
+            type: 'DELETE',
+            url: `tasks/${taskId}`, 
+        })
+        .then(function(response){
+            console.log("RESPONSE", response);
+            refreshTaskList();
+        })
+        .catch(function(error){
+            alert("Error in DELETE function: ", error);
+        })
+    } else {
+        return;
+      }
 }
