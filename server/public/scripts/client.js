@@ -8,7 +8,7 @@ function onReady() {
     refreshTaskList();
 }
 
-function submitNewTask(){
+function submitNewTask() {
     console.log("SUBMIT BUTTON CLICKED");
     let todo = {
         task: "",
@@ -20,38 +20,38 @@ function submitNewTask(){
     $("#newTaskIn").val("");
 }
 
-function addTask(taskToAdd){
+function addTask(taskToAdd) {
     $.ajax({
         type: 'POST',
         url: '/tasks',
         data: taskToAdd
-        }).then(function(response) {
-          console.log('Response from server: ', response);
-          refreshTaskList(); //function that runs GET request, which will run a function that appends to DOM
-        }).catch(function(error) {
-          console.log('Error in POST function: ', error)
-          alert('Unable to add task');
-        });
-    }
+    }).then(function (response) {
+        console.log('Response from server: ', response);
+        refreshTaskList(); //function that runs GET request, which will run a function that appends to DOM
+    }).catch(function (error) {
+        console.log('Error in POST function: ', error)
+        alert('Unable to add task');
+    });
+}
 
-function refreshTaskList(){
+function refreshTaskList() {
     $.ajax({
         type: 'GET',
         url: '/tasks'
-      }).then(function(response) {
-        console.log(response); 
+    }).then(function (response) {
+        console.log(response);
         appendTasks(response);
-      }).catch(function(error){
+    }).catch(function (error) {
         console.log('Error in GET function: ', error);
-      });
+    });
 }
 
-function appendTasks(listOfTasks){
+function appendTasks(listOfTasks) {
     console.log("In appendTasks: ", listOfTasks);
     $("#taskTable").empty();
-    for(let i=0; i<listOfTasks.length; i++){
+    for (let i = 0; i < listOfTasks.length; i++) {
         let taskObject = listOfTasks[i];
-        if (taskObject.status===false){
+        if (taskObject.status === false) {
             $("#taskTable").append(`
             <tr data-id="${taskObject.id}">
                 <td>${taskObject.task}</td>
@@ -60,7 +60,7 @@ function appendTasks(listOfTasks){
                 <td><button class="deleteButton">Delete</button></td>
             </tr>
             `);
-        }else if (taskObject.status===true){
+        } else if (taskObject.status === true) {
             $("#taskTable").append(`
             <tr class="completedTask" data-id="${taskObject.id}">
                 <td>${taskObject.task}</td>
@@ -75,7 +75,7 @@ function appendTasks(listOfTasks){
     $(".deleteButton").on('click', deleteTask);
 }
 
-function completeTask(){
+function completeTask() {
     let taskId = $(this).parent().parent().data("id");
     let completeStatus = $(this).text();
     console.log("Complete Task with ID and Status: ", taskId, completeStatus);
@@ -85,31 +85,31 @@ function completeTask(){
         data: {
             status: completeStatus
         }
-        }).then( function(response){
-          console.log(response);
-          refreshTaskList();
-      }).catch( function(error){
-          alert("Error in PUT function: ", error);
-      })
+    }).then(function (response) {
+        console.log(response);
+        refreshTaskList();
+    }).catch(function (error) {
+        alert("Error in PUT function: ", error);
+    })
 }
 
-function deleteTask(){
+function deleteTask() {
     let taskId = $(this).parent().parent().data("id");
     console.log("Delete Task with ID: ", taskId);
     let r = confirm("Are you sure you want to delete this task?");
     if (r == true) {
         $.ajax({
             type: 'DELETE',
-            url: `tasks/${taskId}`, 
+            url: `tasks/${taskId}`,
         })
-        .then(function(response){
-            console.log("RESPONSE", response);
-            refreshTaskList();
-        })
-        .catch(function(error){
-            alert("Error in DELETE function: ", error);
-        })
+            .then(function (response) {
+                console.log("RESPONSE", response);
+                refreshTaskList();
+            })
+            .catch(function (error) {
+                alert("Error in DELETE function: ", error);
+            })
     } else {
         return;
-      }
+    }
 }
